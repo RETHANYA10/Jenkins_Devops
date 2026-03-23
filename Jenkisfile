@@ -1,17 +1,28 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Check Python Version') {
-            steps {
-                sh 'python --version'
-            }
-        }
-
-        stage('Run Python Script') {
-            steps {
-                sh 'python python.py'
-            }
-        }
+  agent any
+  stages {
+    stage('Prepare SSH known_hosts') {
+      steps {
+        sh '''
+          mkdir -p ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/known_hosts
+        '''
+      }
     }
+    stage('Checkout') {
+      steps {
+        checkout([
+          $class: 'GitSCM',
+          userRemoteConfigs: [[
+            url: 'git@github.com:your-org/your-repo.git',
+            credentialsId: 'your-ssh-cred-id'
+          ]],
+          branches: [[name: '*/main']]
+        ])
+      }
+    }
+  }
 }
+``
