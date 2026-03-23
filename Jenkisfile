@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check Python Version') {
+            steps {
+                sh 'python --version'
+            }
+        }
+
+        stage('Run Python Script') {
+            steps {
+                sh 'python python.py'
+            }
+        }
+    }
+}
