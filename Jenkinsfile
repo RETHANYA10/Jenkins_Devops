@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Pull your repo (remove if SCM is already configured in the job)
-                git url: 'https://your-repo-url.git', branch: 'main'
+                git url:'https://github.com/RETHANYA10/Jenkins_Devops.git', branch: 'b3'
             }
         }
 
