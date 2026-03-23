@@ -1,16 +1,15 @@
 pipeline {
     agent any
 
-    // If you keep Declarative auto-checkout, do NOT add a custom Checkout stage.
-    // If you want to control checkout explicitly, uncomment skipDefaultCheckout(true)
-    // and the Checkout stage below.
+    // Keep default Declarative checkout (do NOT add a custom Checkout stage)
+    // If you want a custom stage, uncomment skipDefaultCheckout(true) and add the Checkout stage below.
+
     // options { skipDefaultCheckout(true) }
 
     stages {
-        // Uncomment this stage ONLY if you enabled skipDefaultCheckout(true) above.
+        // Use this stage ONLY if you enabled skipDefaultCheckout(true) above.
         // stage('Checkout') {
         //     steps {
-        //         // Reuses the job's SCM configuration (correct repo/branch/credentials)
         //         checkout scm
         //     }
         // }
@@ -32,7 +31,6 @@ pipeline {
 
         stage('Prepare HTML') {
             when {
-                // Only run if index.html exists in the repo
                 expression { fileExists('index.html') }
             }
             steps {
@@ -46,7 +44,6 @@ pipeline {
 
     post {
         always {
-            // Only publish if the html file exists to avoid failures
             script {
                 if (fileExists('html/index.html')) {
                     publishHTML(target: [
