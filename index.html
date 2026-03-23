@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jenkins HTML Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card { padding: 1rem 1.5rem; border: 1px solid #ddd; border-radius: 8px; }
+    .ok { color: #0a7d28; font-weight: 700; }
+    button { margin-top: 1rem; padding: .5rem 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Jenkins HTML Report</h1>
+  <div class="card">
+    <p>Status: <span class="ok">Build Succeeded</span></p>
+    <p>Generated at: <span id="ts"></span></p>
+    <button onclick="updateTime()">Refresh Timestamp</button>
+  </div>
+
+  <script>
+    function updateTime() {
+      document.getElementById('ts').textContent = new Date().toLocaleString();
+    }
+    updateTime();
+  </script>
+</body>
+</html>
